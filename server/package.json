@@ -1,0 +1,35 @@
+{
+  "name": "todo-server",
+  "version": "1.0.0",
+  "description": "TODO Rest API Server",
+  "main": "server.js",
+  "keywords": [
+    "todo"
+  ],
+  "author": "Parvez Shaikh",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cli-table": "^0.3.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "gulp-mocha": "^2.2.0",
+    "http-status": "^0.1.8",
+    "mocha": "^2.4.5",
+    "superagent": "^1.7.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-watch": "^4.3.5",
+    "gulp-mocha": "^2.0.1",
+    "mocha": "^2.2.4"
+  },
+  "scripts": {
+    "test": "mocha ./test/test.js",
+    "watch": "gulp watch"
+  }
+}
