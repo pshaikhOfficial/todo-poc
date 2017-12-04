@@ -29,7 +29,7 @@ export class ApiService {
 
   public createTodo(todo: Todo): Observable<Todo> {
     return this.http
-      .post(API_URL + '/todos', todo)
+      .post(API_URL + '/todo', todo)
       .map(response => {
         return new Todo(response.json());
       })
