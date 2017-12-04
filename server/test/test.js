@@ -1,8 +1,9 @@
 
 var assert = require('assert');
 var express = require('express');
+const bodyparser = require('body-parser');
 var status = require('http-status');
-var superagent = require('superagent');
+var request = require('superagent');
 
 var URL_ROOT = 'http://localhost:8000';
 
@@ -13,6 +14,7 @@ describe('Backend Server - Routes Test', function () {
 
   before(function () {
     app = express();
+    app.use(bodyparser.json());
     app.use('/api/v1', require('../api/handlers')());
     server = app.listen(8000);
   });
@@ -42,13 +44,13 @@ describe('Backend Server - Routes Test', function () {
   it('can query todos', function (done) {
     var url = URL_ROOT + '/api/v1/todos';
 
-    superagent
+    request
       .get(url)
       .end(function (err, res) {
         if (err) {
           return done(err);
         }
-        assert.equal(JSON.stringify(res.body.todos), JSON.stringify(todos));
+        assert.equal(JSON.stringify(res.body), JSON.stringify(todos));
         done();
       });
   });
@@ -56,10 +58,9 @@ describe('Backend Server - Routes Test', function () {
   it('can add a todo', function (done) {
     var url = URL_ROOT + '/api/v1/todo';
 
-    superagent
+    request
       .post(url)
       .send({
-        id: "8",
         title: "zzz",
         complete: true
       })
@@ -67,7 +68,7 @@ describe('Backend Server - Routes Test', function () {
         if (err) {
           return done(err);
         }
-        if (res.body.todo) {
+        if (res.body) {
           done();
         }
       });
@@ -76,7 +77,7 @@ describe('Backend Server - Routes Test', function () {
   it('can update a todo', function (done) {
     var url = URL_ROOT + '/api/v1/todo/6';
 
-    superagent
+    request
       .put(url)
       .send({
         id: "6",
@@ -87,7 +88,7 @@ describe('Backend Server - Routes Test', function () {
         if (err) {
           return done(err);
         }
-        if (res.body.todo)
+        if (res.body)
           done();
       });
   });
@@ -95,13 +96,13 @@ describe('Backend Server - Routes Test', function () {
   it('can delete a todo', function (done) {
     var url = URL_ROOT + '/api/v1/todo/7';
 
-    superagent
+    request
       .delete(url)
       .end(function (err, res) {
         if (err) {
           return done(err);
         }
-        if (res.body.todo)
+        if (res.body)
           done();
       });
   });
